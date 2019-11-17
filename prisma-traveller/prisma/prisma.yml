@@ -1,0 +1,6 @@
+#endpoint: ${env:PRISMA_ENDPOINT}
+endpoint: https://lp-traveller-server-ae682aaac4.herokuapp.com/prisma-traveller/dev
+# endpoint: https://us1.prisma.sh/krystyna-2fc50b/lp-traveller-service/prod
+# endpoint: https://lp-traveller-d24b2c0c04.herokuapp.com/klp-traveller-prisma-service/prod
+datamodel: datamodel.graphql
+secret: ${env:PRISMA_SECRET}

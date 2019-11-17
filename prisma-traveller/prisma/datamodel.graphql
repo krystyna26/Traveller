@@ -1,0 +1,121 @@
+type User {
+  id: ID! @id
+  first_name: String!
+  last_name: String!
+  age: Int
+  from: String
+  avatar_url: Photo @relation(link: INLINE) # 1:1 | foreign key is here
+  email: String! @unique
+  password: String!
+  comments: [Comment!]! @relation(link: TABLE, name: "CommentsToUser", onDelete: CASCADE) # what will happen to comment when user get deleted
+  trips: [Trip!]! @relation(link: TABLE, name: "TripsToUser", onDelete: CASCADE)
+  # friends: [User!]! @relation(link: TABLE, name: "FriendsToUser") # N:M
+  likedTrips: [Trip!]! @relation(name: "LikedTrips")
+  # photosAdded: [Photo!]! @relation(link: TABLE, name: "PhotosToUser") # 1:N
+  conversations: [Conversation!]! @relation(link: TABLE, name: "ConversationsToUser") # M:N
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Trip {
+  id: ID! @id
+  author: User! @relation(name: "TripsToUser") # 1:N
+  traveled_from: String!
+  traveled_to: String!
+  travel_started_at: DateTime!
+  travel_ended_at: DateTime!
+  stops: [Stop!]! @relation(onDelete: CASCADE)
+  comments: [Comment!]! @relation(onDelete: CASCADE)
+  budget: Float
+  published: Boolean! @default(value: false)
+  num_of_people: Int
+  kids: Boolean
+  seniors: Boolean
+  walking: Boolean
+  driving: Boolean
+  pace: PaceEnum!
+  rate: Int
+  pictures: [Photo!]!
+  times_taken: Int! @default(value: 0)
+  likedBy: [User!]! @relation(name: "LikedTrips")
+  # longitude: Float!
+  # latitude: Float!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Stop {
+  id: ID! @id
+  trip: Trip! @relation(link: TABLE, onDelete: SET_NULL) # 1:N
+  destination: String!
+  description: String
+  cost: Float
+  completed: Boolean! @default(value: false)
+  completedAt: DateTime
+  pictures: [Photo!]! @relation(onDelete: CASCADE) # 1:N
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Comment {
+  id: ID! @id
+  trip: Trip! @relation(link: TABLE, onDelete: SET_NULL) # 1:N
+  author: User! @relation(name: "CommentsToUser", onDelete: SET_NULL) # 1:N
+  content: String!
+  comments: [Comment!]! @relation(link: TABLE, name: "SubcommentsToComment")
+  published: Boolean!
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Photo {
+  id: ID! @id
+  trip: Trip @relation(link: TABLE, onDelete: SET_NULL) # 1:N
+  # photosAuthor: User @relation(onDelete: SET_NULL, name: "PhotosToUser") # 1:N
+  user: User @relation(onDelete: SET_NULL) #1:1
+  stop: Stop @relation(link: INLINE, onDelete: SET_NULL)
+  url: String!
+  caption: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+type Conversation {
+  id: ID! @id
+  sender: User! @relation(link: TABLE, name: "ConversationsSenderToUser")
+  recipient: [User!]! @relation(link: TABLE, name: "ConversationsRecipientToUser")
+  createdAt:DateTime! @createdAt
+}
+
+type Message {
+  id: ID! @id
+  conversation_id: Conversation! @relation(link: INLINE) # 1:N
+  body: String!
+  sender: User!
+  is_read: Boolean! @default(value: false)
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
+}
+
+# type FriendsToUser @relationTable {
+#   current_user: User!
+#   friend: User!
+# }
+
+type ConversationsSenderToUser @relationTable {
+  user_id: User!
+  conversation_id: Conversation!
+}
+
+type ConversationsRecipientToUser @relationTable {
+  user_id: User!
+  conversation_id: Conversation!
+}
+
+enum PaceEnum {
+  FAST
+  MODERATE
+  SLOW
+}
+
+scalar DateTime
