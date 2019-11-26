@@ -2,7 +2,7 @@ cd prisma-traveller
 npm init (use default values)
 npm install
 npm install babel-cli@6.26.0 babel-preset-env@1.7.0
-from root===prisma-traveller create: .babelrc file with
+from root (=== prisma-traveller) create: '.babelrc' file with:
 {
   "presets": [
     "env"
@@ -57,9 +57,17 @@ if Query.users has 6 users then User.posts with run 6 times for each user object
 ---------------
 PRISMA
 ---------------
+Lesson 43.
 
-Create new db on heroku and way to connect to it by GUI - pgAdmin, install Docker (to use Prisma) and run it
+HEROKU
+Go to https://dashboard.heroku.com/apps New-> create new app -> choose name and region -> Create app
+Overview -> search for heroku postgress and provision it. that will create a db.
+Under 'settings' find credentials (d307m4np1mtd2).
 
+PGADMIN
+Create new db on heroku and way to connect to it by GUI - pgAdmin, install Docker (to use Prisma) and run it.
+
+PRISMA
 from root run: npm install -g prisma@1.12.0
 
 from prisma-traveller: `prisma init prisma` and follow the steps:
@@ -74,7 +82,7 @@ Set up a new Prisma server or deploy to an existing server? Use existing databas
 ? Use SSL? Yes
 ? Enter name of existing schema schema.graphql
 
-All this will create 3 files in `prisma` folder
+All this will create 3 files in 'prisma' folder:
 
 datamodel.graphql - is a set of type definitions for gql similar to schema.graphql(this is a Node.js graphql API)
 
@@ -86,6 +94,7 @@ prisma.yml - holds configuration:
 docker-compose.yml - will start the docker container
 change there: `schema: schema.graphql` to `ssl:true` to be able to connect to heroku db
 
+Deploy app and whats in 'prisma' folder:
 cd prisma
 `docker-compose up -d`
 `prisma deploy` -> if we make changes in datamodel.graphql file
@@ -139,7 +148,7 @@ in package.json add object into scripts: "get-schema": "graphql get-schema -p pr
 then run: `npm run get-schema`. This will connect to that endpoint, fetch the schema and store it in application file /prisma.graphql. Only time when we make changes in this file is when we re-run script and fetch the latest schema. So when I make changes to datamodel.graphql I need to run `prisma deploy` and script `npm run get-schema`.
 
 Setting up Node.js
-from root: npm start and go to http://localhost:4000
+from root: `npm start` and go to http://localhost:4000
 Node.js is an intermediary between client and server
 ---
 Adding SECRET:
@@ -175,10 +184,10 @@ Add this params to schema.graphql Queries and in Query.js, then test it on local
 ---
 
 
-============= DEPLOYMENT =============
+============= DEPLOYMENT ============= lp-traveller-server
 
-1. Production db (Heroku database)
-2. Host our Prisma docker container (heroku Server)
+1. Production db (Prisma db hosted on Heroku - https://app.prisma.io/krystyna-2fc50b/servers/lp-traveller-server)
+2. Host our Prisma docker container (Prisma server hosted on Heroku  -> lp-traveller-server)
 3. Host our Node.js application
 Services: Heroku | Prisma Cloud
 
@@ -200,7 +209,7 @@ In `dev.env`:
 PRISMA_ENDPOINT=http://localhost:4466
 In `prisma.yml` override endpoint like: "endpoint: ${env:PRISMA_ENDPOINT}"
 
-Run `prisma deploy -e ../config/dev.env` !!!
+From /prisma run: `prisma deploy -e ../config/dev.env` !!!
 ---
 
 
@@ -244,7 +253,7 @@ In package.json change "start" and and "dev" like:
 "start": "",
 "dev":"env-cmd ./config/dev.env nodemon src/index.js --ext js, graphql --exec babel-node",
 
-To run app locally, from root run: `npm run dev` and check localhost:4000
+To run app locally, from root (prisma-traveller) run: `npm run dev` and check localhost:4000
 
 
 
@@ -255,7 +264,7 @@ In package.json add custom script like:
   "start": "",
   "heroku-postbuild": "babel src --out-dir dist --copy-files",
 ...
-Babel will read from src directory and spit those files out to dist directory
+Babel will read from src directory and spit those files out to dist directory. Dist contains everything what Node needs to run application.
 Run: `npm run heroku-postbuild`
 This will create new directory which contains everything what node.js needs to run app.
 
@@ -270,7 +279,7 @@ In src/index.js add import in first line like:
 import '@babel/polyfill';
 
 Delete /dist folder
-Run again: `npm run heroku-postbuild` and `npm run start`
+And rebuild application: `npm run heroku-postbuild` and `npm run start`
 
 Heroku is going to run script: "heroku-postbuild" and then "start"
 
@@ -343,14 +352,14 @@ from prisma run `prisma deploy -e ../config/test.env`
 
 check changes on pgAdmin => refresh schema and you should see another default$test
 
-install as developement dependencies: `npm install jest@23.5.0 --save-dev`
+install as development dependencies: `npm install jest@23.5.0 --save-dev`
 
 change test obj in package.json like: "test": "jest --watch" to watch tests
 
 `npm run test` and build some tests :)
 
 ----------
-
+Lesson 98
 
 https://parceljs.org/
 
@@ -363,7 +372,7 @@ change script in apollo package.json like: "start": "parcel src/index.html"
 run: `npm run start` and go to localhost:1234 or any shown in terminal
 
 ---------
-How to comunicate with graphql from browser? Lesson 99
+How to communicate with graphql from browser? Lesson 99
 1. define an operation in JS
 2. send that off to the server to fetch a response
 3. access that response
@@ -434,7 +443,7 @@ npm install apollo-client@2.4.2 apollo-cache-inmemory@1.2.10 apollo-link-http@1.
 
 for more test ideas go to: links.mead.io/testideas
 
----
+----
 Lesson 114
 To start another project we can copy 'prisma-traveller' folder
 From there delete 'dist', "node_modules" folders and 'db.js' files. From 'prisma/datamodel' you should delete or modify all types based on new project needs.
@@ -448,7 +457,7 @@ tests/utils/operations -> whatever is relevant
 Remove git repository: `rm -rf .git`
 Create new repo: `git init`,  `git add .`
 
-Lesson 115
+Lesson 115 !!!!! Very usefull
 Faster way to deploy
 
 
@@ -463,39 +472,39 @@ Faster way to deploy
 
 ----------------
 DEBUGGING:
-docker ps
-docker logs <pid>
 
-docker-compose down
----
+`docker ps`
+`docker logs <pid>`
+`docker-compose down`
+----
 Problem with running `npm run get-schema`.
 Cannot use GraphQLSchema "[object GraphQLSchema]" from another module or realm.
 rm -rf node_modules/
 npm install -g
 npm run get-schema
----
+----
 ERROR: Couldn't connect to Docker daemon. You might need to start Docker for Mac.
 Make sure you running docker
----
+----
 There is a relation ambiguity during the migration. Please first name the old relation on your schema. The ambiguity is on a relation between Trip and User. Please name relations or change the schema in steps."
 
 `prisma delete` to delete all existing data from db and then `prisma deploy`
----
+----
 FATAL: too many connections for role "asdf"
 heroku pg:killall -a prisma-traveller
----
+----
  "message": "The change you are trying to make would violate the required relation 'CommentToTrip' between Comment and Trip",
 Probably you have to re-deploy prisma
----
+----
 Two different lockfiles found: package-lock.json and
     yarn.lock
 https://stackoverflow.com/questions/47238241/heroku-build-failing-due-to-yarn-and-npm-lockfile-conflict
----
+----
 Warning from babel: @babel/polyfill is loaded more than once on this page. This is probably not desirable/intended and may have consequences if different versions of the polyfills are applied sequentially. If you do need to load the polyfill more than once, use @babel/polyfill/noC
 onflict instead to bypass the warning.
 
 update import in sec.index.js like: import '@babel/polyfill/noConflict';
----
+----
 Server at default requires the Management API secret. Please set the the PRISMA_MANAGEMENT_API_SECRET environment variable.
 
 https://www.prisma.io/docs/1.24/faq/how-to-reveal-management-api-secret-with-heroku-integration-fq03/
@@ -503,13 +512,13 @@ https://www.prisma.io/docs/1.24/faq/how-to-reveal-management-api-secret-with-her
 add it to prod.env and to heroku? and deploy again
 
 Don't instal beta!! (npm install -g prisma@beta)
----
+----
 "Authentication token is invalid: Token can't be decoded: Invalid signature for this token or wrong algorithm.
----
+----
 "request to http://localhost:4466/food/dev failed, reason: socket hang up"
 
 error is comming from 'prisma deploy'. Make sure you deployed correctly
----
+----
  Error when running: heroku config:set PRISMA_ENDPOINT=https://us1.prisma.sh/krystyna-2fc50b/food/prod PRISMA_SECRET=thinkpositivesecret PR
 ISMA_MANAGEMENT_API_SECRET=ce624c07c97ee6a
 
@@ -522,7 +531,23 @@ ISMA_MANAGEMENT_API_SECRET=ce624c07c97ee6a -a pure-everglades-49013
 
 where "pure-everglades-49013" it's an app name
 ......
----
+----
+`docker ps` to get the process id
+`docker kill <pid>` to kill the process
+`docker rm <pid>` to remove it
+`docker-compose up -d` to recreate it
+Wait 20 seconds and open localhost:4466
+
+(From there, try to redeploy Prisma
+check the new container logs)
+----
+Krystyna:prisma-traveller krystynaswider$ heroku ps
+ ▸    Couldn't find that app.
+Run:
+ `git remote rm heroku`
+ `git remote add heroku git@heroku.com:yourappname.git`
+https://stackoverflow.com/questions/7615807/renamed-heroku-app-from-website-now-its-not-found
+----
 run `git remote -v` That would show you the different Heroku apps that are connected with that project.
 ----------------
 More about prisma: https://www.prisma.io/docs/datamodel-and-migrations/datamodel-MYSQL-knul/
@@ -535,3 +560,20 @@ https://xd.adobe.com/view/b8261d75-dcfe-446c-4a1e-bb20f600d84c-ce17/screen/bba7c
 ? Set up a new Prisma server or deploy to an existing server? krystyna-2fc50b/lp-traveller
 ? Choose a name for your service klp-traveller-prisma-service
 ? Choose a name for your stage prod
+
+
+
+
+
+============== EXTRAS ===============
+
+npm install @apollo/react-hooks
+
+prisma.yml
+# endpoint: https://lp-traveller-server-ae682aaac4.herokuapp.com/prisma-traveller/dev
+# endpoint: https://us1.prisma.sh/krystyna-2fc50b/lp-traveller-service/prod
+# endpoint: https://lp-traveller-d24b2c0c04.herokuapp.com/klp-traveller-prisma-service/prod
+
+
+endpoint: https://lp-traveller-server-d760dd1aab.herokuapp.com/lp-traveller-service/dev
+https://traveller-app-dev-server-lp.herokuapp.com/
