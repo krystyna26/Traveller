@@ -1,5 +1,5 @@
-cd prisma-traveller
-npm init (use default values)
+> cd prisma-traveller
+> npm init (use default values)
 npm install
 npm install babel-cli@6.26.0 babel-preset-env@1.7.0
 from root (=== prisma-traveller) create: '.babelrc' file with:
