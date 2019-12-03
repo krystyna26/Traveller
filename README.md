@@ -1,21 +1,28 @@
-cd prisma-traveller
-npm init (use default values)
-npm install
-npm install babel-cli@6.26.0 babel-preset-env@1.7.0
+`cd prisma-traveller`
+
+`npm init (use default values)`
+
+`npm install`
+
+`npm install babel-cli@6.26.0 babel-preset-env@1.7.0`
+
 from root (=== prisma-traveller) create: '.babelrc' file with:
+```
 {
   "presets": [
     "env"
   ]
 }
+```
 
 create file: /src/index.js
-from prisma-traveller run: npm run start
+from prisma-traveller run: `npm run start`
 
-from root: npm i graphql-yoga@1.16.7                   // 1.14.10
-npm install nodemon@1.17.5 --save-dev
-and change "start": "babel-node src/index.js",
-to "start": "nodemon src/index.js --exec babel-node",
+from root: `npm i graphql-yoga@1.16.7`                   // 1.14.10
+
+`npm install nodemon@1.17.5 --save-dev`
+
+and change `"start": "babel-node src/index.js",` to "start": `"nodemon src/index.js --exec babel-node",`
 
 parent -
 args - it is object; contains arguments values we supply
@@ -26,7 +33,7 @@ here args = {name: "Jess"}
 
 context - contextual data, whatever we store in API
 info - contains info about fields requested in playground
-
+```
 query {
   posts {
     id
@@ -36,20 +43,21 @@ query {
     }
   }
 }
-in this query we are asking about author so for each post object resolver Post: {
+```
+in this query we are asking about author so for each post object resolver 
+```
+Post: {
   author(parent is Post here,...)
-} will run to get author's name. So if we have 3 posts this function will run 3 times for each post
+}
+```
+will run to get author's name. So if we have 3 posts this function will run 3 times for each post
 
 
-npm install uuid@3.3.2
+`npm install uuid@3.3.2`
 
-npm install babel-plugin-transform-object-rest-spread@6.26.0
+`npm install babel-plugin-transform-object-rest-spread@6.26.0`
 
-change: "start": "nodemon src/index.js --exec babel-node",
-to: "start": "nodemon src/index.js --ext js, graphql --exec babel-node",
-
-
-
+change: `"start": "nodemon src/index.js --exec babel-node",` to: `"start": "nodemon src/index.js --ext js, graphql --exec babel-node",`
 
 if Query.users has 6 users then User.posts with run 6 times for each user object
 
@@ -59,28 +67,28 @@ PRISMA
 ---------------
 Lesson 43.
 
-HEROKU
+### HEROKU
 Go to https://dashboard.heroku.com/apps New-> create new app -> choose name and region -> Create app
 Overview -> search for heroku postgress and provision it. that will create a db.
 Under 'settings' find credentials (d307m4np1mtd2).
 
-PGADMIN
+### PGADMIN
 Create new db on heroku and way to connect to it by GUI - pgAdmin, install Docker (to use Prisma) and run it.
 
-PRISMA
-from root run: npm install -g prisma@1.12.0
+### Install PRISMA
+from root run: `npm install -g prisma@1.12.0`
 
 from prisma-traveller: `prisma init prisma` and follow the steps:
-Set up a new Prisma server or deploy to an existing server? Use existing database
-? What kind of database do you want to deploy to? PostgreSQL
-? Does your database contain existing data? No
-? Enter database host ec2-54-83-33-14.compute-1.amazonaws.com
-? Enter database port 5432
-? Enter database user ecorofzgqzmgza
-? Enter database password b4edb77d8059e7e02244e2808ded37908b6dfd59f7368dd4902dfaaf03579a46
-? Enter database name d4t0nqcmgfhlor
-? Use SSL? Yes
-? Enter name of existing schema schema.graphql
+> Set up a new Prisma server or deploy to an existing server? Use existing database <br />
+>  What kind of database do you want to deploy to? PostgreSQL<br />
+> Does your database contain existing data? No<br />
+> Enter database host ec2-54-83-33-14.compute-1.amazonaws.com<br />
+> Enter database port 5432<br />
+> Enter database user ecoro-user-zmgza<br />
+> Enter database password b4edb77d8059e7e02244e2-password-59f7368dd4902dfaaf03579a46<br />
+> Enter database name d4t0-database-hlor<br />
+> Use SSL? Yes<br />
+> Enter name of existing schema schema.graphql<br />
 
 All this will create 3 files in 'prisma' folder:
 
@@ -122,7 +130,7 @@ const prisma = new Prisma({
 })
 ```
 
-
+----
 fetching schemas for given API and saving in file - run: `npm install graphql-cli@2.16.4`
 https://github.com/graphql-cli/graphql-cli
 
@@ -147,7 +155,7 @@ in package.json add object into scripts: "get-schema": "graphql get-schema -p pr
 
 then run: `npm run get-schema`. This will connect to that endpoint, fetch the schema and store it in application file /prisma.graphql. Only time when we make changes in this file is when we re-run script and fetch the latest schema. So when I make changes to datamodel.graphql I need to run `prisma deploy` and script `npm run get-schema`.
 
-Setting up Node.js
+### Setting up Node.js
 from root: `npm start` and go to http://localhost:4000
 Node.js is an intermediary between client and server
 ---
@@ -155,16 +163,20 @@ Adding SECRET:
 to prisma.yml add secret property like `secret: my_secret_here` and the same to prisma.js but with quote `secret: 'my_secret_here'` and redeploy prisma
 
 This will work only on localhost:4000. To make it work on localhost:4466 we must add Authorization object to localhost:4466 playground HTTP HEADERS like:
+
+```
 {
   "Authorization": "Bearer super_long_token_here"
 }
-To get token for localhost:4466 : `cd prisma` and `prisma token`
+```
 
+To get token for localhost:4466 : `cd prisma` and `prisma token`
+----
 Lesson 67.
 in .graphqlconfig add single property on 'extensions' obj like: `"prisma": "prisma/prisma.yml",`. Otherwise you would not be able to get schema because we locked endpoint
 
 and then  `npm run get-schema`
----
+----
 unistall uuidv4 -> npm uninstall uuid
 `npm install bcryptjs@2.4.3`
 
@@ -174,17 +186,22 @@ this is the token that server is going to send to client when client sings up or
 const token = jwt.sign({ id: 45 }, "mybestguess")
 const decode = jwt.decode(token)
 const decoded2 = jwt.verify(token, 'mysecert')
----
+----
 
-
+---------------
 PAGINATION
+---------------
 Lesson:83
+
 on localhost:4466 try queries with: first: Int and skip:Int
 Add this params to schema.graphql Queries and in Query.js, then test it on localhost:4000
----
+----
 
 
-============= DEPLOYMENT ============= lp-traveller-server
+---------------
+DEPLOYMENT 
+---------------
+lp-traveller-server
 
 1. Production db (Prisma db hosted on Heroku - https://app.prisma.io/krystyna-2fc50b/servers/lp-traveller-server)
 2. Host our Prisma docker container (Prisma server hosted on Heroku  -> lp-traveller-server)
@@ -196,48 +213,51 @@ https://www.prisma.io/cloud login -> Servers -> Add server(and add it) -> Create
 
 
 
-Connecting to production db:
+### Connecting to production db:
 go to pgAdmin -> right click Create server -> put any name you want -> on Heroku Database click 'view on heroku' -> Heroku Postgres -> Settings -> View credentials -> C/P these credentials to open pgAdmin tab - Save and you should see db on the left side
 db: dcoodk3p0vc86m
 If we have more project we can create more services, but we will always have one server.
 
 
+### Setting dynamic endpoint in prisma.yml. 
+Lesson 89.
 
-Setting dynamic endpoint in prisma.yml. Lesson 89.:
 Create new folder: `config` with `dev.env` and `prod.env` files in it.
 In `dev.env`:
-PRISMA_ENDPOINT=http://localhost:4466
-In `prisma.yml` override endpoint like: "endpoint: ${env:PRISMA_ENDPOINT}"
+`PRISMA_ENDPOINT=http://localhost:4466`
+In `prisma.yml` override endpoint like: `"endpoint: ${env:PRISMA_ENDPOINT}"`
 
 From /prisma run: `prisma deploy -e ../config/dev.env` !!!
----
+----
 
 
-Deploying to server:
+### Deploying to server:
 Login to prisma by runing `prisma login`, click Grand permission
 `prisma deploy -e ../config/prod.env`
 choose you app name and fill out some information:
 
-? Set up a new Prisma server or deploy to an existing server? krystyna-2fc50b/lp-traveller
-? Choose a name for your service krystyna-lemeni-pop-traveller | lp-traveller-service
-? Choose a name for your stage prod
+> Set up a new Prisma server or deploy to an existing server? krystyna-2fc50b/lp-traveller <br />
+> Choose a name for your service krystyna-lemeni-pop-traveller | lp-traveller-service <br />
+> Choose a name for your stage prod <br />
 
 Copy endpoint from `prisma.yml` and paste into prod.env like "PRISMA_ENDPOINT=https://lp-traveller-d24b2c0c04.herokuapp.com/krystyna-lemeni-pop-traveller/prod"
 Now override prisma.yml endpoint like: "endpoint: ${env:PRISMA_ENDPOINT}" run `prisma deploy -e ../config/prod.env` and you're all set with deploying to prod.
 go to heroku and under 'Services' tab you should see a new service
 under playground tab you can go and perform all queries and mutations securely (with authorization injected). All of them match up with the one from localhost:4466.
 https://us1.prisma.sh/krystyna-2fc50b/lp-traveller-service/prod - new playground
----
-
-
+----
 
 3. Lesson 91
-Go to https://git-scm.com/ and download git-scm
+Go to https://git-scm.com/ and download git-scm.
+
 If `git --version` doesn't show any errors, move on otherwise install it.
+
 Run `npm install -g heroku`, `heroku login`
+
 Go to https://devcenter.heroku.com/articles/heroku-cli to read more.
 
 Open /src/index.js and make changes:
+```
 server.start(({ port: process.env.PORT || 4000})=> {
   console.log("Server is up")
   // run: npm run start
@@ -245,25 +265,33 @@ server.start(({ port: process.env.PORT || 4000})=> {
 
   // heroku uses different port https://github.com/prisma/graphql-yoga Lesson 91
 })
+```
 
-in prisma.js change endpoint LIKE: "endpoint: process.env.PRISMA_ENDPOINT,"
+in prisma.js change endpoint LIKE: `"endpoint: process.env.PRISMA_ENDPOINT,"`
+
 Install:  `npm install env-cmd@8.0.2`
 https://github.com/toddbluhm/env-cmd
 In package.json change "start" and and "dev" like:
+
+```
 "start": "",
 "dev":"env-cmd ./config/dev.env nodemon src/index.js --ext js, graphql --exec babel-node",
+```
 
 To run app locally, from root (prisma-traveller) run: `npm run dev` and check localhost:4000
 
 
-
-Heroku is going to use "start" to run application. Lesson 92
+### Heroku is going to use "start" to run application. 
+Lesson 92
 https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process
 In package.json add custom script like:
+```
 "scripts": {
   "start": "",
   "heroku-postbuild": "babel src --out-dir dist --copy-files",
 ...
+```
+
 Babel will read from src directory and spit those files out to dist directory. Dist contains everything what Node needs to run application.
 Run: `npm run heroku-postbuild`
 This will create new directory which contains everything what node.js needs to run app.
