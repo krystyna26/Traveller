@@ -554,6 +554,10 @@ More about prisma: https://www.prisma.io/docs/datamodel-and-migrations/datamodel
 update prisma: npm i -g prisma
 correct DateTime: travel_started_at: "2019-10-10"
 -----------------
+
+configure add-ons on heroku -> search for 'postgress' and add it
+
+-----------------
 https://xd.adobe.com/view/b8261d75-dcfe-446c-4a1e-bb20f600d84c-ce17/screen/bba7cc4e-5990-482d-b6e7-334b03950d92/Web-1366-8
 
 -----------------
@@ -577,3 +581,9 @@ prisma.yml
 
 endpoint: https://lp-traveller-server-d760dd1aab.herokuapp.com/lp-traveller-service/dev
 https://traveller-app-dev-server-lp.herokuapp.com/
+
+"npm install react-apollo"
+
+npx create-react-app react-traveller
+
+npm install apollo-boost graphql react-apollo

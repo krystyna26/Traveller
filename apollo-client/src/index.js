@@ -1,6 +1,4 @@
 import ApolloBoost, { gql } from 'apollo-boost';
-import ReactDOM from 'react-dom';
-import App from './App';
 
 const client = new ApolloBoost({
   // graphql backend uri
@@ -15,8 +13,6 @@ const getUsers = gql`
     }
   }
 `
-
-// ReactDOM.render(<App />, document.getElementById('root'))
 
 // query should look similar to one from localhost:4000
 client.query({ query: getUsers }).then((response) => {
@@ -63,35 +59,3 @@ client.query({ query: getTrips }).then((response) => {
 // trips id is in index.html file
   document.getElementById('trips').innerHTML = html
 })
-
-// ReactDOM.render(<App />, document.getElementById('root'))
-// --------------------
-  // const domContainer = document.querySelector('#trips');
-  // ReactDOM.render(class, domContainer)
-
-
-// 'use strict';
-//
-// const e = React.createElement;
-//
-// class LikeButton extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = { liked: false };
-//   }
-//
-//   render() {
-//     if (this.state.liked) {
-//       return 'You liked this.';
-//     }
-//
-//     return e(
-//       'button',
-//       { onClick: () => this.setState({ liked: true }) },
-//       'Like'
-//     );
-//   }
-// }
-//
-// const domContainer = document.querySelector('#trips');
-// ReactDOM.render(e(LikeButton), domContainer);
