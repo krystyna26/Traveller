@@ -1,5 +1,6 @@
 import ApolloBoost, { gql } from 'apollo-boost';
 
+// initializing instance of ApolloBoost
 const client = new ApolloBoost({
   // graphql backend uri
   uri: 'http://localhost:4000'
@@ -17,17 +18,17 @@ const getUsers = gql`
 // query should look similar to one from localhost:4000
 client.query({ query: getUsers }).then((response) => {
   let html  = ''
-  console.log(response.data.users)
+  console.log("response", response.data.users)
 
-  response.data.users.forEach((user) => {
-    html += `
-      <div>
-        <h3>${user.first_name}</h3>
-      </div>
-    `
-  })
-
-  document.getElementById('users').innerHTML = html
+  // response.data.users.forEach((user) => {
+  //   html += `
+  //     <div>
+  //       <h3>${user.first_name}</h3>
+  //     </div>
+  //   `
+  // })
+  //
+  // document.getElementById('users').innerHTML = html
 })
 
 

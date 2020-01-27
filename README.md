@@ -44,7 +44,7 @@ query {
   }
 }
 ```
-in this query we are asking about author so for each post object resolver 
+in this query we are asking about author so for each post object resolver
 ```
 Post: {
   author(parent is Post here,...)
@@ -199,7 +199,7 @@ Add this params to schema.graphql Queries and in Query.js, then test it on local
 
 
 ---------------
-DEPLOYMENT 
+DEPLOYMENT
 ---------------
 lp-traveller-server
 
@@ -219,7 +219,7 @@ db: dcoodk3p0vc86m
 If we have more project we can create more services, but we will always have one server.
 
 
-### Setting dynamic endpoint in prisma.yml. 
+### Setting dynamic endpoint in prisma.yml.
 Lesson 89.
 
 Create new folder: `config` with `dev.env` and `prod.env` files in it.
@@ -281,7 +281,7 @@ In package.json change "start" and and "dev" like:
 To run app locally, from root (prisma-traveller) run: `npm run dev` and check localhost:4000
 
 
-### Heroku is going to use "start" to run application. 
+### Heroku is going to use "start" to run application.
 Lesson 92
 https://devcenter.heroku.com/articles/nodejs-support#customizing-the-build-process
 In package.json add custom script like:
@@ -400,7 +400,10 @@ change script in apollo package.json like: "start": "parcel src/index.html"
 run: `npm run start` and go to localhost:1234 or any shown in terminal
 
 ---------
-How to communicate with graphql from browser? Lesson 99
+### How to communicate with graphql from browser? Lesson 99
+
+from apollo-client run: `npm run start` AND from prism-traveller:  `npm run dev`
+
 1. define an operation in JS
 2. send that off to the server to fetch a response
 3. access that response
@@ -415,7 +418,10 @@ Add new property into package.json like:
   "globalSetup": "./tests/config/globalSetup.js",
   "globalTeardown": "./tests/config/globalTeardown.js"
 },
-Lesson 100
+
+
+
+### Lesson 100
 `npm install babel-register@6.26.0`
 
 change test in package.json like: "test": "env-cmd ./config/test.env jest --watch",
@@ -427,7 +433,7 @@ Lesson 101
 
 When you run tests from user.test.js go check new created user in test schema in pgAdmin
 
-Lesson 105:
+### Lesson 105:
 change package.json test property like:
 "test": "env-cmd ./config/test.env jest --watch --runInBand",
 restart `npm run test`
