@@ -214,8 +214,8 @@ https://www.prisma.io/cloud login -> Servers -> Add server(and add it) -> Create
 
 
 ### Connecting to production db:
-go to pgAdmin -> right click Create server -> put any name you want -> on Heroku Database click 'view on heroku' -> Heroku Postgres -> Settings -> View credentials -> C/P these credentials to open pgAdmin tab - Save and you should see db on the left side
-db: dcoodk3p0vc86m
+go to pgAdmin -> right click Create server -> put any name you want -> on Prisma->Servers->Database click 'view on heroku' -> Heroku Postgres -> Settings -> View credentials -> C/P these credentials to open pgAdmin tab - Save and you should see db on the left side
+db: dbgbsaj10fap45
 If we have more project we can create more services, but we will always have one server.
 
 
