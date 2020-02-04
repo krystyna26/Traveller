@@ -1,3 +1,3 @@
 client : parcel apollo-client/src/index.html
 prisma: node prisma-traveller/dist/index.js
-react: react-scripts start react-traveller
+react: react-scripts start react-traveller/src/index.js
