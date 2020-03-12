@@ -64,7 +64,6 @@ if Query.users has 6 users then User.posts with run 6 times for each user object
 
 ---------------
 PRISMA
----------------
 Lesson 43.
 
 ### HEROKU
@@ -75,7 +74,7 @@ Under 'settings' find credentials (d307m4np1mtd2).
 ### PGADMIN
 Create new db on heroku and way to connect to it by GUI - pgAdmin, install Docker (to use Prisma) and run it.
 
-### Install PRISMA
+## Install PRISMA
 from root run: `npm install -g prisma@1.12.0`
 
 from prisma-traveller: `prisma init prisma` and follow the steps:
@@ -92,14 +91,14 @@ from prisma-traveller: `prisma init prisma` and follow the steps:
 
 All this will create 3 files in 'prisma' folder:
 
-datamodel.graphql - is a set of type definitions for gql similar to schema.graphql(this is a Node.js graphql API)
+* datamodel.graphql - is a set of type definitions for gql similar to schema.graphql(this is a Node.js graphql API)
 
-prisma.yml - holds configuration:
+* prisma.yml - holds configuration:
   endpoint: http://localhost:4466/<default_service_name=project_name_forExample_test>/<default_stage_name>
   If we deploy project with a different name this will not conflict with whatever we have already in pgAdmin. Lesson 56.  http://localhost:4466 === http://localhost:4466/default/default
   datamodel: datamodel.graphql
 
-docker-compose.yml - will start the docker container
+* docker-compose.yml - will start the docker container
 change there: `schema: schema.graphql` to `ssl:true` to be able to connect to heroku db
 
 Deploy app and whats in 'prisma' folder:
