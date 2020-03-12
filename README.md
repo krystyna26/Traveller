@@ -293,6 +293,7 @@ In package.json change "start" and and "dev" like:
 ```
 
 To run app locally, from root (prisma-traveller) run: `npm run dev` and check localhost:4000
+
 --
 
 ### Lesson 92. Heroku is going to use "start" to run application.
@@ -374,7 +375,7 @@ Go to production version of app connecter to prod version of prisma: https://anc
 
 Set secret in a separate files prod.env and dev.env and set it on heroku like: `heroku config:set PRISMA_SECRET=your_secret_here_copied_from_prod.env`
 
-### Deploying to development
+## Deploying to development
 - `cd prisma`
 - `prisma deploy -e ../config/dev.env` - to deploy new secret key
 
@@ -523,9 +524,9 @@ Create new repo: `git init`,  `git add .`
 DEBUGGING:
 ----------------
 
-`docker ps`
-`docker logs <pid>`
-`docker-compose down`
+- `docker ps`
+- `docker logs <pid>`
+- `docker-compose down`
 
 ----
 
